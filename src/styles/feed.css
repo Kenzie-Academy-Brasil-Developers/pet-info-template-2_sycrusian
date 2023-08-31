@@ -1,0 +1,123 @@
+.feed__header {
+    width: 50rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user__menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#user-avatar {
+    position: relative;
+    width: 2.625rem;
+    min-width: 2.625rem;
+    height: 2.625rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-brand-1);
+    cursor: pointer;
+}
+
+.logout__menu {
+    position: absolute;
+    right: 19.375rem;
+    top: 5.625rem;
+    height: 6rem;
+    width: 12rem;
+    border: 2px solid var(--color-grey-1);
+    display: flex;
+    flex-direction: column;
+}
+
+.username__container {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logout-button {
+    height: 50%;
+    width: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#logout-button:hover > img {
+    content: url("./../assets/img/sign-out-alt-black.svg");
+}
+
+.feed__main {
+    width: 50rem;
+    margin: 0 auto;
+}
+
+
+.feed__title {
+    margin-left: 1.5rem;
+}
+
+#feed-list {
+    margin-top: 4rem;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.post__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.post__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post__userinfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.post__avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+.post__menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bolder {
+    font-weight: 600;
+}
+
+.post__text {
+    height: 3rem;
+    overflow: hidden;
+}
+
+.post__access {
+    color: var(--color-brand-1);
+    cursor: pointer;
+}

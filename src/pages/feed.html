@@ -4,7 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./../styles/reset.css">
+    <link rel="stylesheet" href="./../styles/global.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="./../styles/feed.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+    <script type="module" src="./../scripts/feed.js" defer></script>
     <title>Petinfo - Feed</title>
   </head>
-  <body></body>
+  <body>
+    <header class="feed__header">
+      <h1 class="title-2">Petinfo</h1>
+      <div class="user__menu">
+        <button id="new-post" class="button button__blue">Criar publicação</button>
+        <img id="user-avatar" src="" alt="" />
+      </div>
+    </header>
+    <main class="feed__main">
+      <h2 class="title-3 feed__title">Feed</h2>
+      <ul id="feed-list"></ul>
+    </main>
+    <div id="logout-menu" class="hidden">
+      <div class="username__container">
+        <h3 id="user-name" class="title-4"></h3>
+      </div>
+      <button id="logout-button">
+        <img src="./../assets/img/sign-out-alt-grey.svg" alt="Logout">
+        <span>Sair da conta</span>
+      </button>
+    </div>
+  </body>
 </html>

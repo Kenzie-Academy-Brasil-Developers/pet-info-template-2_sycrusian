@@ -1,0 +1,25 @@
+.presentation__container {
+    margin-top: 10rem;
+}
+
+.form__container {
+    margin-top: 8rem;
+}
+
+.login__alert {
+    margin-top: -0.625rem;
+    margin-bottom: 0.625rem;;
+    color: var(--color-alert-1);
+}
+
+.login__alert--hidden {
+    opacity: 0;
+}
+
+.text__center {
+    text-align: center;
+}
+
+.button {
+    width: 100%;
+}

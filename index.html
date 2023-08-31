@@ -4,7 +4,49 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/styles/reset.css">
+    <link rel="stylesheet" href="./src/styles/global.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="./src/styles/index.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+    <script type="module" src="./src/scripts/index.js" defer></script>
     <title>PetInfo - Login</title>
   </head>
-  <body></body>
+  <body class="dual__body">
+    <section class="presentation__container">
+      <h1 class="title-1">Petinfo</h1>
+      <h2 class="title-1"><em>Amor</em> e <em>carinho</em> por meio do conhecimento</h2>
+      <p class="text-1">Todas as informações para melhorar a vida do seu pet em um só lugar</p>
+      <img src="./src/assets/img/img-login.svg" alt="Login Page Image">
+    </section>
+    <section class="form__container">
+      <h2 class="title-3">Login</h2>
+      <form>
+        <div class="input__container">
+          <label for="email">Email</label>
+          <input
+            class="input login__input"
+            type="text"
+            name="email"
+            placeholder="Digite seu email aqui"
+            required />
+          <p id="email-alert" class="text-2 login__alert login__alert--hidden">O email está incorreto</p>
+        </div>
+        <div class="input__container">
+          <label for="password">Senha</label>
+          <input
+            class="input login__input"
+            type="password"
+            name="password"
+            placeholder="Digite sua senha aqui"
+            required />
+            <p id="password-alert" class="text-2 login__alert login__alert--hidden">A senha está incorreta</p>
+        </div>
+      </form>
+      <button id="login-button" class="button button__blue">Acessar</button>
+      <h3 class="title-4">Ainda não possui conta?</h3>
+      <p class="text-2 text__center">Clicando no botão abaixo, você pode se cadastrar rapidamente</p>
+      <button id="register-button" class="button button__white">Cadastrar</button>
+    </section>
+  </body>
 </html>

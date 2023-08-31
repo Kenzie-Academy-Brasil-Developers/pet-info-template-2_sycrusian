@@ -4,7 +4,63 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./../styles/reset.css">
+    <link rel="stylesheet" href="./../styles/global.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="./../styles/register.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+    <script type="module" src="./../scripts/register.js" defer></script>
     <title>PetInfo - Cadastro</title>
   </head>
-  <body></body>
+  <body class="dual__body">
+    <section class="form__container">
+      <h2 class="title-3">Cadastro</h2>
+      <form>
+        <div class="input__container">
+          <label for="username">Usuário</label>
+          <input
+            class="input register__input"
+            type="text"
+            name="username"
+            placeholder="Digite seu usuário aqui"
+            required />
+        </div>
+        <div class="input__container">
+          <label for="email">Email</label>
+          <input
+            class="input register__input"
+            type="text"
+            name="email"
+            placeholder="Digite seu email aqui"
+            required />
+        </div>
+        <div class="input__container">
+          <label for="avatar">Link da foto do perfil</label>
+          <input
+            class="input register__input"
+            type="text"
+            name="avatar"
+            placeholder="Insira o link aqui"
+            required />
+        </div>
+        <div class="input__container">
+          <label for="password">Senha</label>
+          <input
+            class="input register__input"
+            type="password"
+            name="password"
+            placeholder="Digite sua senha aqui"
+            required />
+        </div>
+      </form>
+      <button id="register-button" class="button button__blue">Cadastrar</button>
+      <button id="return-button" class="button button__white">Voltar para o login</button>
+    </section>
+    <section class="presentation__container">
+      <h1 class="title-1">Petinfo</h1>
+      <h2 class="title-1"><em>Ooooooba!</em></h2>
+      <p class="text-1">Agora vamos poder contribuir para o bem estar do seu pet por meio do conhecimento</p>
+      <img src="./../assets/img/img-register.svg" alt="Register Page Image">
+    </section>
+  </body>
 </html>
