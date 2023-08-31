@@ -79,9 +79,59 @@
             ></textarea>
           </div>
         </form>
-        <div id="create-post-footer">
+        <div class="post__footer">
           <button id="create-post-cancel" class="button button__white">Cancelar</button>
           <button id="create-post-publish" class="button button__blue">Publicar</button>
+        </div>
+      </div>
+    </dialog>
+    <dialog id="edit-post" class="dialog__controller">
+      <div class="dialog__container">
+        <span id="edit-post-id" class="hidden"></span>
+        <div class="post__header">
+          <h2 class="title-2">Edição</h2>
+          <button id="edit-post-close" class="close__button"></button>
+        </div>
+        <form class="input__form">
+          <div class="input__container">
+            <label class="text-3" for="title">Título do post</label>
+            <input
+              id="edit-post-title"
+              class="input edit-post__input"
+              type="text"
+              name="title"
+              required />
+          </div>
+          <div class="input__container">
+            <label class="text-3" for="content">Conteúdo do post</label>
+            <textarea
+              id="edit-post-content"
+              class="input edit-post__input"
+              name="content"
+              cols="30"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+        </form>
+        <div class="post__footer">
+          <button id="edit-post-cancel" class="button button__white">Cancelar</button>
+          <button id="edit-post-save" class="button button__blue">Salvar Alterações</button>
+        </div>
+      </div>
+    </dialog>
+    <dialog id="delete-post" class="dialog__controller">
+      <div class="dialog__container">
+        <span id="delete-post-id" class="hidden"></span>
+        <div class="post__header">
+          <h2 class="title-3">Confirmação de exclusão</h2>
+          <button id="delete-post-close" class="close__button"></button>
+        </div>
+        <h2 class="title-2">Tem certeza de que deseja excluir este post?</h2>
+        <p class="text-1">Essa ação não poderá ser desfeita, então pedimos que tenha cautela antes de concluir</p>
+        <div class="post__footer">
+          <button id="delete-post-cancel" class="button button__white">Cancelar</button>
+          <button id="demolish-post" class="button button__red">Sim, excluir este post</button>
         </div>
       </div>
     </dialog>

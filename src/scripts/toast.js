@@ -1,5 +1,5 @@
-export const green = '#168821';
-export const red = '#df1545';
+export const green = "#087f5b";
+export const red = "#c73650";
 
 export const toast = (message, color) => {
     Toastify({

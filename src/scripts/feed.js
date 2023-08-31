@@ -1,4 +1,4 @@
-import { createPost, loadPost, loadPosts, verifyUser } from "./requests.js";
+import { createPost, destroyPost, editPost, loadPost, loadPosts, verifyUser } from "./requests.js";
 import { toast, green, red } from "./toast.js";
 
 const currentUser = {};
@@ -70,6 +70,32 @@ const displayPost = async id => {
     }
 }
 
+const modifyPost = async id => {
+    const token = localStorage.getItem("@petinfo:token");
+    const post = await loadPost(token, id);
+    if (post) {
+        const editPostDialog = document.querySelector("#edit-post");
+        const editPostId = document.querySelector("#edit-post-id");
+        editPostId.innerText = post.id;
+        const editPostTitle = document.querySelector("#edit-post-title");
+        editPostTitle.value = post.title;
+        const editPostContent = document.querySelector("#edit-post-content");
+        editPostContent.value = post.content;
+        editPostDialog.showModal();
+    } else {
+        const message = "Erro ao tentar abrir publicação. Por favor, tente novamente mais tarde";
+        toast(message, red);
+    }
+}
+
+const removePost = id => {
+    const deletePostId = document.querySelector("#delete-post-id");
+    deletePostId.innerHTML = id;
+
+    const deletePostDialog = document.querySelector("#delete-post");
+    deletePostDialog.showModal();
+}
+
 const buildPost = post => {
     const postCard = document.createElement("li");
     postCard.classList.add("post__container");
@@ -95,11 +121,19 @@ const buildPost = post => {
         postEditButton.classList.add("button", "button__small", "button__white") :
         postEditButton.classList.add("hidden");    
     postEditButton.innerText = "Editar";
+    postEditButton.addEventListener("click", event => {
+        const id = event.currentTarget.parentNode.parentNode.parentNode.querySelector("span").innerText;
+        modifyPost(id);
+    });
     const postDeleteButton = document.createElement("button");
     post.user.id === currentUser.id ?
         postDeleteButton.classList.add("button", "button__small", "button__white") :
         postDeleteButton.classList.add("hidden");
     postDeleteButton.innerText = "Excluir";
+    postDeleteButton.addEventListener("click", event => {
+        const id = event.currentTarget.parentNode.parentNode.parentNode.querySelector("span").innerText;
+        removePost(id);
+    })
         postMenu.append(postEditButton, postDeleteButton);
     postHeader.append(postUserInfo, postMenu);
     const postTitle = document.createElement("h2");
@@ -114,7 +148,7 @@ const buildPost = post => {
     postAccess.addEventListener("click", event => {
         const id = event.currentTarget.parentNode.querySelector("span").innerText;
         displayPost(id);
-    })
+    });
     postCard.append(postId, postHeader, postTitle, postContent, postAccess);
     return postCard;
 }
@@ -124,6 +158,7 @@ const getPosts = async () => {
     const postInfo = await loadPosts(token);
     if (postInfo) {
         const postList = document.querySelector("#feed-list");
+        postList.innerHTML = "";
         postInfo.forEach(post => {
             postList.appendChild(buildPost(post));
         });
@@ -171,9 +206,67 @@ const handleNewPost = () => {
 
 }
 
+const handleModifyPost = () => {
+    const editPostDialog = document.querySelector("#edit-post");
+            
+    const editPostClose = document.querySelector("#edit-post-close");
+    editPostClose.addEventListener("click", () => editPostDialog.close());
 
+    const editPostCancel = document.querySelector("#edit-post-cancel");
+    editPostCancel.addEventListener("click", () => editPostDialog.close());
 
+    const editPostSave = document.querySelector("#edit-post-save");
+    editPostSave.addEventListener("click", async () => {
+        const token = localStorage.getItem("@petinfo:token");
+        const editPostId = document.querySelector("#edit-post-id");
+        const editPostTitle = document.querySelector("#edit-post-title");
+        const editPostContent = document.querySelector("#edit-post-content");
+        const modifiedPost = {};
+        const postId = editPostId.innerText;
+        let counter = 0;
+        editPostTitle.value.trim() ? modifiedPost.title = editPostTitle.value.trim() : counter++;
+        editPostContent.value.trim() ? modifiedPost.content = editPostContent.value.trim() : counter++;
+        if (counter > 0) {
+            toast("Por favor, preencha todos os campos.", red);
+        } else {
+            const editResult = await editPost(token, modifiedPost, postId);
+            if (editResult) {
+                toast("Publicação alterada com sucesso!", green);
+                getPosts();
+                editPostDialog.close();
+            } else {
+                const message = "Erro ao tentar modificar este post. Por favor, tente novamente mais tarde.";
+                toast(message, red);
+            }
+        }
+    });
+}
 
+const handleDestroyPost = () => {
+    const deletePostDialog = document.querySelector("#delete-post");
+
+    const deletePostClose = document.querySelector("#delete-post-close");
+    deletePostClose.addEventListener("click", () => deletePostDialog.close());
+
+    const deletePostCancel = document.querySelector("#delete-post-cancel");
+    deletePostCancel.addEventListener("click", () => deletePostDialog.close());
+    
+    const demolishPost = document.querySelector("#demolish-post");
+    demolishPost.addEventListener("click", async () => {
+        const token = localStorage.getItem("@petinfo:token");
+        const deletePostId = document.querySelector("#delete-post-id");
+        const postId = deletePostId.innerText;
+        const removePost = await destroyPost(token, postId);
+        if (removePost) {
+            toast("Post deletado com sucesso!", green);
+            getPosts();
+            deletePostDialog.close();
+        } else {
+            const message = "Erro ao tentar deletar este post. Por favor, tente novamente mais tarde."
+            toast(message, red);
+        }
+    });
+}
 
 
 
@@ -182,6 +275,8 @@ const openPage = () => {
     handleAuthentication();
     getPosts();
     handleNewPost();
+    handleModifyPost();
+    handleDestroyPost();
 }
 
 openPage();

@@ -195,7 +195,12 @@
     padding: 0.8rem 1rem;
 }
 
-#create-post-footer {
+#edit-post-content {
+    height: 8rem;
+    padding: 0.8rem 1rem;
+}
+
+.post__footer {
     width: 100%;
     display: flex;
     flex-direction: row;

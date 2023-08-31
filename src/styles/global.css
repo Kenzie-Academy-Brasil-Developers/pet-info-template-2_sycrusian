@@ -162,6 +162,16 @@ button {
     background-color: var(--color-grey-1);
 }
 
+.button__red {
+    color: var(--color-grey-9);
+    background-color: var(--color-alert-1);
+    border: 1px solid var(--color-alert-1);
+}
+
+.button__red:hover {
+    color: var(--color-alert-1);
+    background-color: var(--color-grey-9);
+}
 
 .hidden {
     display: none;
