@@ -33,5 +33,57 @@
         <span>Sair da conta</span>
       </button>
     </div>
+    <dialog id="view-post" class="dialog__controller">
+      <div class="dialog__container">
+        <span id="view-post-id" class="hidden"></span>
+        <div class="post__header">
+          <div class="post__userinfo">
+            <img id="view-post-avatar" src="" alt="" class="post__avatar">
+            <h3 id="view-post-name" class="title-4"></h3>
+            <span class="grey">|</span>
+            <h3 id="view-post-date" class="title-4 grey"></h3>
+          </div>
+          <button id="view-post-close" class="close__button"></button>
+        </div>
+        <h2 id="view-post-title" class="title-2 bolder"></h2>
+        <p id="view-post-content" class="text-1"></p>
+        </span>
+      </div>
+    </dialog>
+    <dialog id="create-post" class="dialog__controller">
+      <div class="dialog__container">
+        <div class="post__header">
+          <h2 class="title-2">Criando novo post</h2>
+          <button id="create-post-close" class="close__button"></button>
+        </div>
+        <form class="input__form">
+          <div class="input__container">
+            <label class="text-3" for="title">Título do post</label>
+            <input
+              class="input new-post__input"
+              type="text"
+              name="title"
+              placeholder="Digite o título aqui..."
+              required />
+          </div>
+          <div class="input__container">
+            <label class="text-3" for="content">Conteúdo do post</label>
+            <textarea
+              id="create-post-content"
+              class="input new-post__input"
+              placeholder="Desenvolva o conteúdo do post aqui..."
+              name="content"
+              cols="30"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+        </form>
+        <div id="create-post-footer">
+          <button id="create-post-cancel" class="button button__white">Cancelar</button>
+          <button id="create-post-publish" class="button button__blue">Publicar</button>
+        </div>
+      </div>
+    </dialog>
   </body>
 </html>

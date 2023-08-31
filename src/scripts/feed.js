@@ -1,5 +1,5 @@
-import { loadPosts, verifyUser } from "./requests.js";
-import { toast, green } from "./toast.js";
+import { createPost, loadPost, loadPosts, verifyUser } from "./requests.js";
+import { toast, green, red } from "./toast.js";
 
 const currentUser = {};
 
@@ -32,7 +32,6 @@ const renderPage = () => {
     logoutButton.addEventListener("click", () => logout());
 }
 
-
 const handleAuthentication = async () => {
     const token = localStorage.getItem("@petinfo:token");
     const userInfo = await verifyUser(token);
@@ -41,6 +40,33 @@ const handleAuthentication = async () => {
         renderPage();
     } else {
         location.replace("./../../index.html");
+    }
+}
+
+const displayPost = async id => {
+    const token = localStorage.getItem("@petinfo:token");
+    const post = await loadPost(token, id);
+    if (post) {
+        const displayPostDialog = document.querySelector("#view-post");
+        const displayPostId = document.querySelector("#view-post-id");
+        displayPostId.innerText = post.id;
+        const displayPostAvatar = document.querySelector("#view-post-avatar");
+        displayPostAvatar.src = post.user.avatar;
+        displayPostAvatar.alt = post.user.username;
+        const displayPostName = document.querySelector("#view-post-name");
+        displayPostName.innerText = post.user.username;
+        const displayPostDate = document.querySelector("#view-post-date");
+        displayPostDate.innerText = Date(post.createdAt);
+        const displayPostTitle = document.querySelector("#view-post-title");
+        displayPostTitle.innerText = post.title;
+        const displayPostContent = document.querySelector("#view-post-content");
+        displayPostContent.innerText = post.content;
+        const displayPostClose = document.querySelector("#view-post-close");
+        displayPostClose.addEventListener("click", () => displayPostDialog.close());
+        displayPostDialog.showModal();
+    } else {
+        const message = "Erro ao tentar abrir publicação. Por favor, tente novamente mais tarde";
+        toast(message, red);
     }
 }
 
@@ -85,10 +111,13 @@ const buildPost = post => {
     const postAccess = document.createElement("a");
     postAccess.classList.add("text-3", "post__access");
     postAccess.innerText = "Acessar publicação";
+    postAccess.addEventListener("click", event => {
+        const id = event.currentTarget.parentNode.querySelector("span").innerText;
+        displayPost(id);
+    })
     postCard.append(postId, postHeader, postTitle, postContent, postAccess);
     return postCard;
 }
-
 
 const getPosts = async () => {
     const token = localStorage.getItem("@petinfo:token");
@@ -101,12 +130,58 @@ const getPosts = async () => {
     }
 }
 
+const handleNewPost = () => {
+    const newPostDialog = document.querySelector("#create-post");
+    const newPostInputs = document.querySelectorAll(".new-post__input");
+    
+    const newPostButton = document.querySelector("#new-post");
+    newPostButton.addEventListener("click", () => {
+        newPostInputs.forEach(input => input.value = "");
+        newPostDialog.showModal();
+    });
+    
+    const newPostClose = document.querySelector("#create-post-close");
+    newPostClose.addEventListener("click", () => newPostDialog.close());
+    
+    const newPostCancel = document.querySelector("#create-post-cancel");
+    newPostCancel.addEventListener("click", () => newPostDialog.close());
+
+    const newPostPublish = document.querySelector("#create-post-publish");
+    newPostPublish.addEventListener("click", async () => {
+        const token = localStorage.getItem("@petinfo:token");
+        const post = {};
+        let counter = 0;
+        newPostInputs.forEach(input => {
+            input.value.trim() ? post[input.name] = input.value.trim() : counter++;
+        })
+        if (counter > 0) {
+            toast("Por favor, preencha todos os campos.", red);
+        } else {
+            const postResult = await createPost(token, post);
+            if (postResult) {
+                toast("Publicação realizada com sucesso!", green);
+                getPosts();
+                newPostDialog.close();
+            } else {
+                const message = "Erro ao realizar publicação. Por favor, tente novamente mais tarde.";
+                toast(message, red);
+            }
+        }
+    })
+
+}
+
+
+
+
+
 
 
 
 const openPage = () => {
     handleAuthentication();
     getPosts();
+    handleNewPost();
 }
 
 openPage();
